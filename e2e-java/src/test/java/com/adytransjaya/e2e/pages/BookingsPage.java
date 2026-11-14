@@ -25,7 +25,7 @@ public class BookingsPage extends HomePage {
     }
 
     public BookingsPage tungguPesanan(String teks) {
-        waitForText(teks);
+        scrollToText(teks);
         return this;
     }
 

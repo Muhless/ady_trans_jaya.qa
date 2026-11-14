@@ -28,4 +28,27 @@ class CarTest extends BaseTest {
         cars.tungguMobil("Daihatsu Terios");
         cars.tungguMobil("F 2345 ADY");
     }
+
+    @Test
+    void berhasilMenambahMobilBaru() {
+        loginPage().masukSebagaiPemilik();
+
+        CarsPage cars = new CarsPage(driver).open();
+
+        cars.bukaFormTambah()
+                .isiNama("Toyota Fortuner")
+                .isiMerek("Toyota")
+                .isiPlat("B 9999 ADY")
+                .isiKursi("7")
+                .isiTahun("2025")
+                .isiHarga("500000")
+                .sembunyikanKeyboard()
+                .pilihTransmisi("Manual")
+                .pilihStatus("available")
+                .simpan();
+
+        // Data baru harus langsung muncul di daftar.
+        cars.tungguMobil("Toyota Fortuner");
+        cars.tungguMobil("B 9999 ADY");
+    }
 }

@@ -111,12 +111,14 @@ fun ReportTab(
                 Text(
                     text = "Laporan & pendapatan",
                     style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.testTag("report_title"),
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Dihitung dari ${completed.size} pesanan selesai",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("report_completed_count"),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedButton(
@@ -177,6 +179,7 @@ fun ReportTab(
 
         item {
             Surface(
+                modifier = Modifier.testTag("report_trend"),
                 shape = RoundedCornerShape(20.dp),
                 color = MaterialTheme.colorScheme.surface,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
@@ -272,6 +275,7 @@ private fun RevenueSummaryCard(
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .testTag("report_revenue_card")
             .clip(RoundedCornerShape(22.dp))
             .background(
                 Brush.linearGradient(
@@ -373,6 +377,7 @@ private fun TopCarsCard(
     val maxRevenue = revenueByCar.maxOfOrNull { it.second }?.coerceAtLeast(1L)?.toFloat() ?: 1f
 
     Surface(
+        modifier = Modifier.testTag("report_top_cars"),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
@@ -452,6 +457,7 @@ private fun OperationalSummaryCard(
     val idLocale = Locale.forLanguageTag("id-ID")
 
     Surface(
+        modifier = Modifier.testTag("report_operations"),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
