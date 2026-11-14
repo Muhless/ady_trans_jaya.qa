@@ -279,8 +279,33 @@ app/src/main/java/com/adytransjaya/app/
 # Build APK
 ./gradlew :app:assembleDebug
 
-# Unit test logika autentikasi
+# Unit test Kotlin (folder app/src/test, saat ini masih berupa stub kosong)
 ./gradlew :app:testDebugUnitTest
+
+# E2E login memakai Appium Java client + JUnit 5
+./gradlew :e2e-java:test
 ```
 
-Hasil unit test ada di `app/build/reports/tests/testDebugUnitTest/index.html`.
+Hasil unit test ada di `app/build/reports/tests/testDebugUnitTest/index.html`,
+sedangkan hasil E2E ada di `e2e-java/build/reports/tests/test/index.html`.
+
+### E2E login (Java)
+
+Prasyarat:
+
+- Emulator/perangkat Android menyala dan terdeteksi (`adb devices`).
+- APK debug sudah dibuild (`./gradlew :app:assembleDebug`).
+- Perintah `appium` tersedia di `PATH`. Server Appium dijalankan otomatis oleh
+  test di `127.0.0.1:4723` (dan dimatikan lagi setelah selesai); kalau sudah ada
+  server yang berjalan, test memakainya.
+
+Test berada di `e2e-java/src/test/java/com/adytransjaya/e2e/` dan mencakup
+tampilan form, validasi input kosong, kata sandi salah, login pemilik, email
+tanpa membedakan huruf besar/kecil, serta navigasi ke/dari halaman registrasi.
+Interaksi UI memakai Page Object Model di `e2e-java/src/test/java/com/adytransjaya/e2e/pages/`
+(`LoginPage`, `HomePage`, `CarsPage`, `BookingsPage`), sedangkan `BaseTest`
+menangani setup Appium dan reset aplikasi.
+Setiap test memulai ulang aplikasi dengan data bersih
+(`mobile: terminateApp` + `mobile: clearApp` + `mobile: activateApp`), jadi APK
+tidak perlu di-install ulang. Log server Appium ditulis ke
+`e2e-java/build/appium-server.log`.

@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AdyTransJaya"
 include(":app")
+include(":e2e-java")

@@ -24,17 +24,7 @@ object DemoData {
             status = CarStatus.AVAILABLE,
             year = 2024,
         ),
-        Car(
-            id = "car-002",
-            name = "Mitsubishi Xpander",
-            brand = "Mitsubishi",
-            plate = "B 5678 ADY",
-            seats = 7,
-            transmission = "Matic",
-            pricePerDay = 400_000,
-            status = CarStatus.RENTED,
-            year = 2023,
-        ),
+
         Car(
             id = "car-003",
             name = "Toyota Innova Zenix",
@@ -142,17 +132,8 @@ object DemoData {
             total = 1_800_000,
             status = BookingStatus.COMPLETED,
         ),
-        Booking(
-            code = "BK-2026-014",
-            carId = "car-003",
-            customerId = "customer-001",
-            startDate = "22 Nov 2026",
-            endDate = "24 Nov 2026",
-            days = 2,
-            total = 1_100_000,
-            status = BookingStatus.CANCELLED,
-        ),
-    )
+
+        )
 
     val monthlyRevenue: List<MonthlyRevenue> = listOf(
         MonthlyRevenue("Jun", 18_500_000),
