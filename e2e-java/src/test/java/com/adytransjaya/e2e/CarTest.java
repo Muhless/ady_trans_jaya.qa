@@ -24,9 +24,18 @@ class CarTest extends BaseTest {
         cars.tungguJudul("Kelola mobil");
         assertTrue(cars.tombolTambahTampil(), "Tombol tambah mobil tidak ditemukan");
 
-        // Data armada contoh ikut tampil di daftar.
         cars.tungguMobil("Daihatsu Terios");
         cars.tungguMobil("F 2345 ADY");
+    }
+
+    @Test
+    void menampilkanHalamanDetailMobil() {
+        loginPage().masukSebagaiPemilik();
+
+        CarsPage cars = new CarsPage(driver).open();
+
+        cars.openDetailCars("Toyota Hiace");
+        assertTrue(cars.halamanDetailTampil());
     }
 
     @Test
@@ -51,4 +60,39 @@ class CarTest extends BaseTest {
         cars.tungguMobil("Toyota Fortuner");
         cars.tungguMobil("B 9999 ADY");
     }
+
+    @Test
+    void mengubahDataMobil() {
+        loginPage().masukSebagaiPemilik();
+
+        CarsPage cars = new CarsPage(driver).open();
+
+        cars.openDetailCars("Toyota Avanza")
+                .bukaEditDariDetail()
+                .isiHarga("400000")
+                .sembunyikanKeyboard()
+                .simpanPerubahan();
+
+        // Tetap di halaman detail dan harga sudah berubah.
+        cars.tungguDetailMobil("Toyota Avanza");
+        cars.tungguMobil("Rp 400.000");
+    }
+
+    @Test
+    void menghapusDataMobil() {
+        loginPage().masukSebagaiPemilik();
+
+        CarsPage cars = new CarsPage(driver).open();
+
+        cars.openDetailCars("Toyota Hiace");
+        assertTrue(cars.halamanDetailTampil());
+
+        cars.bukaHapusDariDetail().konfirmasiHapus();
+
+        cars.tungguUnitTerdaftar(4);
+        cars.tungguMobil("Daihatsu Terios");
+        assertTrue(!cars.mobilTampil("Toyota Hiace"), "Cars should been deleted");
+    }
+
+
 }

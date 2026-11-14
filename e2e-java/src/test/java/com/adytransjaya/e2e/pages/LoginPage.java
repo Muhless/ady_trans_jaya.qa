@@ -4,7 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 /**
  * Halaman login.
- *
+ * <p>
  * Method aksi mengembalikan page yang sama (fluent) supaya alur test
  * terbaca sebagai satu rangkaian langkah.
  */
@@ -12,6 +12,9 @@ public class LoginPage extends BasePage {
 
     public static final String OWNER_EMAIL = "owner@adytransjaya.id";
     public static final String OWNER_PASSWORD = "owner123";
+
+    public static final String EMPLOYEE_EMAIL = "karyawan@adytransjaya.id";
+    public static final String EMPLOYEE_PASSWORD = "karyawan123";
     public static final String CUSTOMER_EMAIL = "customer@adytransjaya.id";
     public static final String CUSTOMER_PASSWORD = "customer123";
 
@@ -69,6 +72,10 @@ public class LoginPage extends BasePage {
 
     public HomePage masukSebagaiPemilik() {
         return masuk(OWNER_EMAIL, OWNER_PASSWORD, "Pemilik");
+    }
+
+    public HomePage masukSebagaiKaryawan() {
+        return masuk(EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, "Karyawan");
     }
 
     public HomePage masukSebagaiPelanggan() {

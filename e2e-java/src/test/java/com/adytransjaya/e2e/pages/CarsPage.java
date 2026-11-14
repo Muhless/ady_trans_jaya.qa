@@ -3,6 +3,7 @@ package com.adytransjaya.e2e.pages;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+
 import org.openqa.selenium.WebElement;
 
 /**
@@ -68,10 +69,74 @@ public class CarsPage extends HomePage {
 
     public CarsPage bukaFormTambah() {
         click("add_car");
-        // Dialog memakai window terpisah, jadi testTag tidak terekspos
-        // sebagai resource-id. Deteksi lewat teks judul dan EditText.
         waitVisible(byExactText("Tambah mobil"));
         waitVisible(byClass(EDIT_TEXT, FIELD_NAME));
+        return this;
+    }
+
+
+    public CarsPage openDetailCars(String namaMobil) {
+        scrollToText(namaMobil).click();
+        waitVisible(byTag("car_detail_back"));
+        return this;
+    }
+
+    public boolean halamanDetailTampil() {
+        return exists("car_detail_back");
+    }
+
+    public CarsPage tungguDetailMobil(String namaMobil) {
+        waitVisible(byTag("car_detail_back"));
+        waitForText(namaMobil);
+        return this;
+    }
+
+    public CarsPage kembaliDariDetail() {
+        click("car_detail_back");
+        waitVisible(byTag("car_search"));
+        return this;
+    }
+
+    public CarsPage bukaEditDariDetail() {
+        // Tombol "Edit" hanya ada di halaman detail.
+        clickExactText("Edit");
+        waitVisible(byExactText("Edit mobil"));
+        waitVisible(byClass(EDIT_TEXT, FIELD_NAME));
+        return this;
+    }
+
+    public CarsPage bukaHapusDariDetail() {
+        clickExactText("Hapus");
+        waitForText("Hapus mobil?");
+        return this;
+    }
+
+    public CarsPage tungguUnitTerdaftar(int jumlah) {
+        waitForText(jumlah + " unit terdaftar");
+        return this;
+    }
+
+    public boolean mobilTampil(String name) {
+        return exists(byText(name));
+    }
+
+    /**
+     * Konfirmasi hapus. Dialog memakai window terpisah sehingga testTag
+     * tidak terekspos; tombol dicari lewat teks "Hapus" di dalam dialog.
+     */
+    public CarsPage konfirmasiHapus() {
+        scrollToExactText("Hapus").click();
+        return this;
+    }
+
+    public CarsPage tungguPesanHapusDitolak(String pesan) {
+        waitForText(pesan);
+        return this;
+    }
+
+    public CarsPage simpanPerubahan() {
+        // Dialog edit memakai tombol "Simpan", bukan "Tambah".
+        scrollToExactText("Simpan").click();
         return this;
     }
 

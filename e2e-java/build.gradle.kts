@@ -19,9 +19,11 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        val tags = (findProperty("e2eTags") as String?)?.split(",")
+        if (tags != null) includeTags(*tags.toTypedArray())
+    }
 
-    // Pastikan APK yang diuji selalu hasil build terbaru.
     dependsOn(":app:assembleDebug")
 
     val apk = rootProject.layout.projectDirectory

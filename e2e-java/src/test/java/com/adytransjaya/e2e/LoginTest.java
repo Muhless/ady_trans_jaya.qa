@@ -2,13 +2,15 @@ package com.adytransjaya.e2e;
 
 import com.adytransjaya.e2e.pages.HomePage;
 import com.adytransjaya.e2e.pages.LoginPage;
+
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * E2E login Ady Trans Jaya memakai Appium Java client + JUnit 5.
- *
+ * <p>
  * Setup Appium dan reset aplikasi disediakan oleh BaseTest, sedangkan
  * interaksi UI ada di LoginPage/HomePage.
  */
@@ -41,12 +43,29 @@ class LoginTest extends BaseTest {
         assertTrue(login.masihDiHalamanLogin(), "Seharusnya masih di halaman login");
     }
 
+
+    @Tag("smoke")
     @Test
     void berhasilMasukSebagaiPemilik() {
         HomePage home = loginPage().masukSebagaiPemilik();
 
         assertTrue(home.tabTampil("overview"));
     }
+
+    @Tag("smoke")
+    @Test
+    void berhasilMasukSebagaiKaryawan() {
+        HomePage home = loginPage().masukSebagaiKaryawan();
+        assertTrue(home.tabTampil("overview"));
+    }
+
+    @Tag("smoke")
+    @Test
+    void berhasilMasukSebagaiPelanggan() {
+        HomePage home = loginPage().masukSebagaiPelanggan();
+        assertTrue(home.tabTampil("overview"));
+    }
+
 
     @Test
     void menerimaEmailTanpaMembedakanHurufBesarKecil() {
